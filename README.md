@@ -42,3 +42,4 @@ python -m ml.src.train
 ```
 
 The ML trainer uses labeled synthetic data only; its reported metrics are generated at execution time and are not claims about production performance. See `docs/` for security, privacy, architecture, cloud cost guidance, and known limitations.
+<img width="1228" height="848" alt="image" src="https://github.com/user-attachments/assets/7e75d438-e44f-474f-82ca-a211cf198853" />
