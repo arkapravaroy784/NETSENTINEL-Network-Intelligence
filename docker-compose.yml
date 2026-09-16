@@ -1,0 +1,37 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: netsentinel
+      POSTGRES_USER: netsentinel
+      POSTGRES_PASSWORD: netsentinel_dev
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U netsentinel -d netsentinel"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+    ports: ["5432:5432"]
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql+psycopg://netsentinel:netsentinel_dev@postgres:5432/netsentinel
+      CORS_ORIGINS: http://localhost:5173
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports: ["8000:8000"]
+  frontend:
+    build: ./frontend
+    depends_on: [backend]
+    ports: ["5173:80"]
+  seed:
+    build: ./backend
+    profiles: ["demo"]
+    environment:
+      DATABASE_URL: postgresql+psycopg://netsentinel:netsentinel_dev@postgres:5432/netsentinel
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./scripts:/scripts:ro
+    command: ["python", "/scripts/seed_demo_data.py"]

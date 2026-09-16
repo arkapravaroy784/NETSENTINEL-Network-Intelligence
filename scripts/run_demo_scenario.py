@@ -1,0 +1,2 @@
+import argparse,subprocess,sys
+parser=argparse.ArgumentParser();parser.add_argument('--scenario',choices=['normal','high_latency','packet_loss','dns_degradation','wifi_degradation','bandwidth_saturation','internet_outage','upstream_degradation'],default='packet_loss');args=parser.parse_args();print(f'Generating safe synthetic {args.scenario} scenario.');subprocess.run([sys.executable,'scripts/seed_demo_data.py'],check=True)

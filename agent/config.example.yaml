@@ -1,0 +1,9 @@
+api_base_url: http://localhost:8000
+device_id: replace-me
+device_token: replace-me
+interval_seconds: 10
+dns_interval_seconds: 30
+http_interval_seconds: 30
+speed_test_interval_seconds: 1200
+internet_targets: [1.1.1.1, 8.8.8.8]
+resolvers: [1.1.1.1, 8.8.8.8]
